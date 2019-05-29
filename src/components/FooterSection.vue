@@ -41,12 +41,12 @@ export default {
 	}
 	.footer-contacts {
 		font-family: sofiaproLight;
-    font-size: 18px;
-    color: #fff;
-    opacity: 0.75;
-    line-height: 1.875;
-    font-weight: 100;
-    margin-top: 25px;
+		font-size: 18px;
+		color: #fff;
+		opacity: 0.75;
+		line-height: 1.875;
+		font-weight: 100;
+		margin-top: 25px;
 	}
 	.copyright {
 		font-size: 14px;
@@ -54,7 +54,8 @@ export default {
 		color: rgb(74, 77, 94);
 		align-self: flex-end;
 	}
-	.footer-wrap {
+	.footer-wrap {    
+		max-width: 1440px;
 		display: flex;
 		width: 90%;
 		justify-content: space-between;

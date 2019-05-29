@@ -5,28 +5,56 @@
 				<p class="title-comment">Write comment <span class="separator"></span></p>
 			</div>
 			<form>
-				<input class="inp-title" v-model="title" maxlength="35" placeholder="Title"><br>
-				<textarea class="inp-comment" v-model="comment"  maxlength="400" placeholder="Your comment" ></textarea><br>
-				<button class="btn">Send</button>
+				<input class="inp-title" v-model="postTitle" maxlength="50" placeholder="Title"><br>
+				<textarea class="inp-comment" v-model="postBody"  maxlength="400" placeholder="Your comment" ></textarea><br>
+				
+				<input type="button" @click="createPost" value="Send" class="btn" v-show="postTitle.trim().length > 0 && postBody.trim().length > 0"/>
+				<input type="button" @click="disabledClick" value="Send" class="btn-disabled" v-show="!( postTitle.trim().length > 0 && postBody.trim().length > 0 )">
+				
 			</form>
 		</div>
 	</div>
 </template>
 
 <script>
-
+	
+import axios from 'axios';
+	
 export default {
 	data() {
 		return {
-			title: null,
-			comment: null
+			postTitle: "",
+			postBody: ""
+		}
+	},
+	methods: {
+		createPost: function() {
+			axios
+			.post('http://5ceafdae0c871100140bf7dc.mockapi.io/api/comments/comments', {
+					title: this.postTitle,
+					comment: this.postBody
+				})
+			.then((response) => {			
+				alert('Your comment has been successfully submitted');
+				this.postTitle = "",
+				this.postBody = "";
+			})
+			.catch((e) => {
+				console.error(e);
+				alert('Something wrong :(');	
+			});
+		},
+
+		disabledClick: function() {
+			alert("Please, input all the data");
 		}
 	}
 }
+	
 </script>
 
 <style scoped>
-	.write-comment-section{
+	.write-comment-section {
 		background-color: #1d1e25;
 		height: 90vh;
 		max-height: 900px;
@@ -34,10 +62,10 @@ export default {
 		align-items: center;
 		justify-content: space-evenly;
 	}
-	.title-comment{
+	.title-comment {
 		margin: 0;
 		margin-top: -145px;
-    margin-left: -58px;
+		margin-left: -58px;
 		font-size: 50px;
 		font-family: sofiaproMedium;
 		color: #fff;
@@ -46,12 +74,12 @@ export default {
 		line-height: 1;
 	}
 	
-	.separator{
+	.separator {
 		width: 71px;
 		position: relative;
-    top: 35px;
-    display: block;
-    border-bottom: 5px solid #f9d10d;
+		top: 35px;
+		display: block;
+		border-bottom: 5px solid #f9d10d;
 	}
 	
 	.inp-title {
@@ -101,17 +129,31 @@ export default {
 		border: 1px;
 		cursor: pointer;
 	}
+	.btn-disabled {
+		margin: 0;
+		font-family: sofiaproLight;
+		font-size: 16px;
+		color: #fff;;
+		background-color: #3c3e4c;
+		line-height: 3.312;
+		text-align: center;
+		width: 150px;
+		height: 55px;
+		border-radius: 3px;
+		border: 1px;
+		cursor: no-drop;
+	}
 	
-	@media (max-width: 950px){
+	@media (max-width: 950px) {
 		.inp-comment, .inp-title {
 			width: 360px;
 		}
 	}
-	@media (max-width: 690px){
+	@media (max-width: 690px) {
 		.write-comment-section{
 			flex-direction: column;
 		}
-		.title-comment{
+		.title-comment {
 			margin: 20px 0;
 		}
 		form{
@@ -123,12 +165,12 @@ export default {
 			margin-bottom: 40px;
 		}
 	}
-	@media (max-width: 425px){
+	@media (max-width: 425px) {
 		.inp-comment, .inp-title {
 			width: 290px;
 		}
 	}	
-	@media (min-width: 1441px){
+	@media (min-width: 1441px) {
 		.write-comment-section {
 			max-width: 2400px;
 			margin: auto;

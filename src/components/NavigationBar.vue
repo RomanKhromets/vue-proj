@@ -3,27 +3,32 @@
 		<div class="nav">
 			<div class="logo"><img :src="image" :alt="logo"/></div>
 			<ul>
-				<li><router-link class="link" to="/#about">About us</router-link></li>
-				<li><router-link class="link" to="/#writeComment"> Write comment</router-link></li>
-				<li><router-link class="link" to="/comments"> Comments</router-link></li>
+				<li @click="updateRouterPath"><router-link class="link" to="/#about">About us</router-link></li>
+				<li @click="updateRouterPath"><router-link class="link" to="/#writeComment"> Write comment</router-link></li>
+				<li><router-link class="link" to="/comments"> Comments </router-link></li>
 			</ul>
 		</div>
   </div>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				image: "./assets/logo.png",
-				logo: "Logotype"
-			}
+export default {
+	data() {
+		return {
+			image: "./assets/logo.png",
+			logo: "Logotype"
+		}
+	},
+	methods: {
+		updateRouterPath: function() {
+			this.$router.push("/")
 		}
 	}
+}
 </script>
 
 <style scoped>
-.nav{
+.nav {
 	display: flex;
 	justify-content: space-between;
 	max-width: 1440px;
@@ -48,12 +53,14 @@ li:hover {
 	line-height: 55px;
 }
 .link {
+	display: block;
 	font-size: 14px;
 	font-family: sofiaproRegular;
 	font-weight: 600;
 	color: rgb(17, 21, 24);
 	text-decoration: none;
 	text-transform: uppercase;
+  	transition-duration: 3s;
 }
 
 @media (max-width: 768px){

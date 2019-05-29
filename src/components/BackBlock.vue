@@ -22,6 +22,7 @@ export default {
 </script>
 <style scoped>
 	.back-block-wrapper {
+		text-align: center;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -35,12 +36,12 @@ export default {
 	}
 	.back-btn {
 		display: flex;
-    justify-content: center;
-    align-items: center;
+		justify-content: center;
+		align-items: center;
 		width: 210px;
 		height: 55px;
-    border: 1px solid rgb(96, 227, 161);
-    border-radius: 3px;
+		border: 1px solid rgb(96, 227, 161);
+		border-radius: 3px;
 		background-color: rgba(0,0,0,0);
 		font-size: 14px;
 		font-weight: bold;
