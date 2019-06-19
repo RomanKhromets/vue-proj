@@ -15,7 +15,7 @@
 export default {
 	data() {
 		return {
-			image: "./assets/logo.png",
+			image: "../assets/logo.png",
 			logo: "Logotype"
 		}
 	},

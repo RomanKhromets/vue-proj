@@ -12,7 +12,7 @@
 							<p class="comment-body">{{ comment.comment }}</p>
 						</div>
 						<button class="btn-details" @click="viewDetails(comment.id)">Read more</button>
-						<div class="trash" :class="trashSize" @click="deleteData(comment.id)" :key="comment.id" >
+						<div class="trash" @click="deleteData(comment.id)" :key="comment.id" >
 							<img src="../../public/assets/icons/trash.svg" alt="delete">
 						</div>
 					</li>
@@ -37,13 +37,13 @@ import axios from 'axios';
 export default {
 	components: {
 		NavigationBar,
-			BackBlock,
-			FooterSection
+		BackBlock,
+		FooterSection
 	  },
 	data () {
 		return{
 			commentsAPI : [],
-			trashSize: ""
+			id: ""
 		}
 	},
 	mounted() {
@@ -68,6 +68,7 @@ export default {
 		},
 		viewDetails: function(id) {
 			this.$router.push("comments/" + id)
+			this.id = id;
 		}
 	}
 }
