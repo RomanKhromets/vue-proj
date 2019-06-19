@@ -18,11 +18,11 @@ import FooterSection from '../components/FooterSection.vue';
 
 export default {
   components: {
-    NavigationBar,
-		MainSection,
-		AboutUsSection,
-		WriteComment,
-		FooterSection
+	NavigationBar,
+	MainSection,
+	AboutUsSection,
+	WriteComment,
+	FooterSection
   }
 }
 </script>

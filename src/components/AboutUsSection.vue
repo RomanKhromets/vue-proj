@@ -62,7 +62,7 @@
 	.card {
 		max-width: 260px;
 		min-height: 310px;
-   		list-style-type: none;
+		list-style-type: none;
 	}
 	.card_wrap {
 		max-height: 1100px;

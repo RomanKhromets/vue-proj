@@ -11,12 +11,14 @@ import VueRouter from 'vue-router';
 
 import Home from './pages/Home.vue';
 import CommentsList from './pages/CommentsList.vue';
+import CurrentComment from './pages/CurrentComment.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
 	{ path: '/', component: Home},
-	{ path: '/comments', component: CommentsList}
+	{ path: '/comments', component: CommentsList},
+	{ path: '/comments/:id', component: CurrentComment}
 ];
 
 const router = new VueRouter({

@@ -11,7 +11,10 @@
 							<h3 class="comment-title"> {{ comment.title }} </h3>
 							<p class="comment-body">{{ comment.comment }}</p>
 						</div>
-						<button class="btn-details">Read more</button>
+						<button class="btn-details" @click="viewDetails(comment.id)">Read more</button>
+						<div class="trash" :class="trashSize" @click="deleteData(comment.id)" :key="comment.id" >
+							<img src="../../public/assets/icons/trash.svg" alt="delete">
+						</div>
 					</li>
 				</ul>
 			</div>
@@ -27,7 +30,6 @@ import NavigationBar from '../components/NavigationBar.vue';
 import FooterSection from '../components/FooterSection.vue';
 import BackBlock from '../components/BackBlock.vue';
 	
-import Vuex from 'vuex';
 import Vue from 'vue';
 	
 import axios from 'axios';
@@ -40,17 +42,35 @@ export default {
 	  },
 	data () {
 		return{
-			commentsAPI : " "
+			commentsAPI : [],
+			trashSize: ""
 		}
 	},
 	mounted() {
 		axios
 		  .get('http://5ceafdae0c871100140bf7dc.mockapi.io/api/comments/comments')
 		  .then(response => (this.commentsAPI = response.data))
-			.catch(error => console.log(error));
+			.catch(error => console.log(error))
+	},
+	updated: function(){
+			axios
+		  .get('http://5ceafdae0c871100140bf7dc.mockapi.io/api/comments/comments')
+		  .then(response => (this.commentsAPI = response.data))
+			.catch(error => console.log(error))
+	},
+	methods: {
+		deleteData: function(id) {
+			axios
+		  .delete('http://5ceafdae0c871100140bf7dc.mockapi.io/api/comments/comments/' + id)
+		  .then(alert("your comment deleted"))
+			.then()
+			.catch(error => console.log(error))		
+		},
+		viewDetails: function(id) {
+			this.$router.push("comments/" + id)
+		}
 	}
 }
-	
 </script>
 
 <style scoped>
@@ -90,6 +110,7 @@ export default {
 		min-height: 250px;
 		margin: 15px;
 		padding: 20px;
+		position: relative;
 	}
 	.btn-details {
 		margin-top: 18px;
@@ -102,6 +123,7 @@ export default {
 		font-family: sofiaproMedium;
 		font-weight: bold;
 		text-align: center;
+		cursor: pointer;
 	}
 	.block-head {    
 		text-align: center;
@@ -111,6 +133,18 @@ export default {
 		font-size: 55px;
 		font-weight: bold;
 	}
+	.trash {
+		width: 50px;
+		position: absolute;
+    bottom: 23px;
+    right: 36px;
+		cursor: pointer;
+	}
+/*
+	.select {
+		width: 65px;
+	}
+*/
 	@media (max-width: 768px) {
 		.block-head {
 			font-size: 35px;
@@ -133,7 +167,4 @@ export default {
 		}
 	}
 </style>
-
-
-
 
