@@ -9,7 +9,8 @@
 				<textarea class="inp-comment" v-model="postBody"  maxlength="400" placeholder="Your comment" ></textarea><br>
 				
 				<input type="button" @click="createPost" value="Send" class="btn" v-show="postTitle.trim().length > 0 && postBody.trim().length > 0"/>
-				<input type="button" @click="disabledClick" value="Send" class="btn-disabled" v-show="!( postTitle.trim().length > 0 && postBody.trim().length > 0 )">
+				
+				<input type="button" @click="disabledClick" value="Send" class="btn-disabled" v-show="!( postTitle.trim().length > 0 && postBody.trim().length > 0 )"/>
 				
 			</form>
 		</div>
@@ -24,7 +25,17 @@ export default {
 	data() {
 		return {
 			postTitle: "",
-			postBody: ""
+			postBody: "",
+			checkForm: function () {
+				
+				var title = document.querySelector(".inp-title");
+				var body = document.querySelector(".inp-comment");
+
+				if ( title.value.length < 1 ) {
+						title.style.border="2px solid red";
+						title.insertAdjacentHTML("beforeBegin", "<h4 style='color: red; font-family: sofiaproMedium; letter-spacing: 1.6px; line-height: 10px'>Please input title field</h4>");
+				}
+			}
 		}
 	},
 	methods: {
@@ -44,13 +55,12 @@ export default {
 				alert('Something wrong :(');	
 			});
 		},
-
 		disabledClick: function() {
 			alert("Please, input all the data");
+			this.checkForm();
 		}
 	}
 }
-	
 </script>
 
 <style scoped>
@@ -85,7 +95,7 @@ export default {
 	.inp-title {
 		box-sizing: border-box;
 		border: 1px solid #60e3a1;
-	 	border-radius: 3px;
+		border-radius: 3px;
 		width: 590px;
 		height: 53px;
 		font-size: 16px;
@@ -95,10 +105,14 @@ export default {
 		padding: 15px;
 	}
 	
+	.inp-title-danger {
+		border: 1px solid red;
+	}
+	
 	.inp-comment {
 		box-sizing: border-box;
 		border: 1px solid #60e3a1;
-	 	border-radius: 3px;
+		border-radius: 3px;
 		width: 590px;
 		margin: 15px 0;
 		padding: 15px;
@@ -109,6 +123,10 @@ export default {
 		color: #fff;
 		resize: none;
 		overflow: hidden;
+	}
+	
+	.inp-comment-danger {
+		border: 1px solid red;
 	}
 	
 	::placeholder {
@@ -143,7 +161,7 @@ export default {
 		border: 1px;
 		cursor: no-drop;
 	}
-	
+
 	@media (max-width: 950px) {
 		.inp-comment, .inp-title {
 			width: 360px;
