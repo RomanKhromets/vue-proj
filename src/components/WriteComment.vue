@@ -5,8 +5,8 @@
 				<p class="title-comment">Write comment <span class="separator"></span></p>
 			</div>
 			<form>
-				<input class="inp-title" v-model="postTitle" maxlength="50" placeholder="Title"><br>
-				<textarea class="inp-comment" v-model="postBody"  maxlength="400" placeholder="Your comment" ></textarea><br>
+				<input class="inp-title" v-model="postTitle" maxlength="50" placeholder="Title">
+				<textarea class="inp-comment" v-model="postBody"  maxlength="400" placeholder="Your comment" ></textarea>
 				
 				<input type="button" @click="createPost" value="Send" class="btn" v-show="postTitle.trim().length > 0 && postBody.trim().length > 0"/>
 				
@@ -30,11 +30,35 @@ export default {
 				
 				var title = document.querySelector(".inp-title");
 				var body = document.querySelector(".inp-comment");
-
-				if ( title.value.length < 1 ) {
-						title.style.border="2px solid red";
-						title.insertAdjacentHTML("beforeBegin", "<h4 style='color: red; font-family: sofiaproMedium; letter-spacing: 1.6px; line-height: 10px'>Please input title field</h4>");
+				
+				var form = document.querySelector("form");
+			
+				if ( title.value.length < 1 && form.firstElementChild == title) {	
+					title.style.border="2px solid red";
+						
+//					if ( form.firstElementChild == title ) {
+//						createAlertMsg();	
+						form.insertBefore(createAlertMsg(), title);
+//					}
+				}	else {
+						title.style.border="1px solid #60e3a1";
 				}
+				
+				if ( body.value.length < 1 ) {
+					body.style.border="2px solid red";
+					console.log(title.nextSibling == body);
+					
+					if ( body.previousElementSibling == title ) {
+						form.insertBefore(createAlertMsg(), body);
+					}
+				}
+				
+				function createAlertMsg() {
+					var parDiv = document.createElement("div");
+					parDiv.innerHTML = "<h4 style='color: red; font-family: sofiaproMedium; letter-spacing: 1.6px; line-height: 10px'>Please input this field</h4>";
+					return parDiv;
+				}
+					
 			}
 		}
 	},
@@ -56,7 +80,7 @@ export default {
 			});
 		},
 		disabledClick: function() {
-			alert("Please, input all the data");
+//			alert("Please, input all the data");
 			this.checkForm();
 		}
 	}
@@ -72,6 +96,10 @@ export default {
 		align-items: center;
 		justify-content: space-evenly;
 	}
+	form {
+		display: flex;
+    flex-direction: column;
+	}
 	.title-comment {
 		margin: 0;
 		margin-top: -145px;
@@ -83,7 +111,6 @@ export default {
 		width: 180px;
 		line-height: 1;
 	}
-	
 	.separator {
 		width: 71px;
 		position: relative;
@@ -91,7 +118,6 @@ export default {
 		display: block;
 		border-bottom: 5px solid #f9d10d;
 	}
-	
 	.inp-title {
 		box-sizing: border-box;
 		border: 1px solid #60e3a1;
@@ -104,11 +130,9 @@ export default {
 		background-color: rgba(0,0,0,0);
 		padding: 15px;
 	}
-	
 	.inp-title-danger {
 		border: 1px solid red;
 	}
-	
 	.inp-comment {
 		box-sizing: border-box;
 		border: 1px solid #60e3a1;

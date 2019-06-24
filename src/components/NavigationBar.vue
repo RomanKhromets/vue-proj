@@ -60,7 +60,7 @@ li:hover {
 	color: rgb(17, 21, 24);
 	text-decoration: none;
 	text-transform: uppercase;
-  	transition-duration: 3s;
+	transition-duration: 3s;
 }
 
 @media (max-width: 768px){
