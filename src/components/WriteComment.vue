@@ -11,7 +11,6 @@
 				<input type="button" @click="createPost" value="Send" class="btn" v-show="( postTitle.trim().length > 0 && postBody.trim().length > 0 )" />
 
 				<input type="button" @click="disabledClick" value="Send" class="btn-disabled" v-show="!( postTitle.trim().length > 0 && postBody.trim().length > 0 )" />
-
 			</form>
 		</div>
 	</div>
@@ -23,19 +22,19 @@
 	export default {
 		data() {
 			return {
-				postTitle: "",
-				postBody: "",
+				postTitle: "asd",
+				postBody: "asd",
 				checkForm: function() {
 					var title = document.querySelector(".inp-title"),
 						body = document.querySelector(".inp-comment"),
 						form = document.querySelector("form");
 
-					if (this.postTitle.length < 1 && form.firstElementChild == title) {
+					if (this.postTitle.trim().length < 1 && form.firstElementChild == title) {
 						title.style.border = "2px solid red";
 						form.insertBefore(createAlertMsg("title"), title);
 					}
 
-					if (this.postBody.length < 1 && body.previousElementSibling == title) {
+					if (this.postBody.trim().length < 1 && body.previousElementSibling == title) {
 						body.style.border = "2px solid red";
 						form.insertBefore(createAlertMsg("Comment body"), body);
 					}
@@ -49,6 +48,11 @@
 				}
 			}
 		},
+		computed: {
+			getGoToComsElem: function() {
+				console.log("getGoToComsElem function is work");
+			}
+		},
 		methods: {
 			createPost: function() {
 				axios
@@ -59,7 +63,12 @@
 					.then((response) => {
 						alert('Your comment has been successfully submitted');
 						this.postTitle = "",
-							this.postBody = "";
+						this.postBody = "";
+					var gotoBtn = document.createElement("div");
+					var form = document.querySelector("form");
+					
+					gotoBtn.innerHTML="<button>Go To Comments</button>";
+					form.appendChild(gotoBtn);
 					})
 					.catch((e) => {
 						console.error(e);
@@ -82,7 +91,7 @@
 
 				title.style.border = "1px solid #60e3a1";
 
-				if (title.previousElementSibling !== form) {
+				if (form.firstElementChild !== title) {
 					title.previousElementSibling.remove();
 				}
 			},
@@ -187,7 +196,6 @@
 		font-family: sofiaproLight;
 		font-size: 16px;
 		color: rgb(29, 30, 37);
-		;
 		background-color: #60e3a1;
 		line-height: 3.312;
 		text-align: center;
@@ -203,7 +211,6 @@
 		font-family: sofiaproLight;
 		font-size: 16px;
 		color: #fff;
-		;
 		background-color: #3c3e4c;
 		line-height: 3.312;
 		text-align: center;

@@ -1,7 +1,6 @@
-
 <template>
-  <div>
-    <NavigationBar/>
+	<div>
+		<NavigationBar />
 		<h1 class="block-head">Comments</h1>
 		<div class="container">
 			<div>
@@ -12,66 +11,66 @@
 							<p class="comment-body">{{ comment.comment }}</p>
 						</div>
 						<button class="btn-details" @click="viewDetails(comment.id)">Read more</button>
-						<div class="trash" @click="deleteData(comment.id)" :key="comment.id" >
+						<div class="trash" @click="deleteData(comment.id)" :key="comment.id">
 							<img src="../../public/assets/icons/trash.svg" alt="delete">
 						</div>
 					</li>
 				</ul>
 			</div>
 		</div>
-    <BackBlock/>
-    <FooterSection/>
-  </div>
+		<BackBlock />
+		<FooterSection />
+	</div>
 </template>
 
 <script>
-	
-import NavigationBar from '../components/NavigationBar.vue';
-import FooterSection from '../components/FooterSection.vue';
-import BackBlock from '../components/BackBlock.vue';
-	
-import Vue from 'vue';
-	
-import axios from 'axios';
-	
-export default {
-	components: {
-		NavigationBar,
-		BackBlock,
-		FooterSection
-	  },
-	data () {
-		return{
-			commentsAPI : [],
-			id: ""
-		}
-	},
-	mounted() {
-		axios
-		  .get('http://5ceafdae0c871100140bf7dc.mockapi.io/api/comments/comments')
-		  .then(response => (this.commentsAPI = response.data))
-			.catch(error => console.log(error))
-	},
-	updated: function(){
-			axios
-		  .get('http://5ceafdae0c871100140bf7dc.mockapi.io/api/comments/comments')
-		  .then(response => (this.commentsAPI = response.data))
-			.catch(error => console.log(error))
-	},
-	methods: {
-		deleteData: function(id) {
-			axios
-		  .delete('http://5ceafdae0c871100140bf7dc.mockapi.io/api/comments/comments/' + id)
-		  .then(alert("your comment deleted"))
-			.then()
-			.catch(error => console.log(error))		
+	import NavigationBar from '../components/NavigationBar.vue';
+	import FooterSection from '../components/FooterSection.vue';
+	import BackBlock from '../components/BackBlock.vue';
+
+	import Vue from 'vue';
+
+	import axios from 'axios';
+
+	export default {
+		components: {
+			NavigationBar,
+			BackBlock,
+			FooterSection
 		},
-		viewDetails: function(id) {
-			this.$router.push("comments/" + id)
-			this.id = id;
+		data() {
+			return {
+				commentsAPI: [],
+				id: ""
+			}
+		},
+		mounted() {
+			axios
+				.get('http://5ceafdae0c871100140bf7dc.mockapi.io/api/comments/comments')
+				.then(response => (this.commentsAPI = response.data))
+				.catch(error => console.log(error))
+		},
+		updated: function() {
+			axios
+				.get('http://5ceafdae0c871100140bf7dc.mockapi.io/api/comments/comments')
+				.then(response => (this.commentsAPI = response.data))
+				.catch(error => console.log(error))
+		},
+		methods: {
+			deleteData: function(id) {
+				axios
+					.delete('http://5ceafdae0c871100140bf7dc.mockapi.io/api/comments/comments/' + id)
+					.then(alert("your comment deleted"))
+					.then()
+					.catch(error => console.log(error))
+			},
+			viewDetails: function(id) {
+				this.$router.push("comments/" + id)
+				this.id = id;
+			}
 		}
 	}
-}
+
 </script>
 
 <style scoped>
@@ -79,7 +78,8 @@ export default {
 		max-width: 1600px;
 		flex-wrap: wrap;
 		margin: auto;
-	}	
+	}
+
 	.comment-list {
 		padding: 0;
 		display: flex;
@@ -88,18 +88,23 @@ export default {
 		align-items: stretch;
 		list-style-type: none;
 	}
-	.comment-title, .comment-body {
+
+	.comment-title,
+	.comment-body {
 		color: rgba(51, 51, 51, 0.7);
 		font-family: sofiaproMedium;
 		text-align: justify;
 	}
+
 	.comment-title {
 		font-size: 18px;
 	}
+
 	.comment-body {
 		font-size: 14px;
 		overflow: hidden;
 	}
+
 	li.comment-item {
 		display: flex;
 		flex-direction: column;
@@ -113,6 +118,7 @@ export default {
 		padding: 20px;
 		position: relative;
 	}
+
 	.btn-details {
 		margin-top: 18px;
 		border: 1px solid rgb(96, 227, 161);
@@ -126,7 +132,8 @@ export default {
 		text-align: center;
 		cursor: pointer;
 	}
-	.block-head {    
+
+	.block-head {
 		text-align: center;
 		color: rgb(17, 21, 24);
 		font-family: sofiaproMedium;
@@ -134,14 +141,16 @@ export default {
 		font-size: 55px;
 		font-weight: bold;
 	}
+
 	.trash {
 		width: 50px;
 		position: absolute;
-    bottom: 23px;
-    right: 36px;
+		bottom: 23px;
+		right: 36px;
 		cursor: pointer;
 	}
-/*
+
+	/*
 	.select {
 		width: 65px;
 	}
@@ -150,22 +159,25 @@ export default {
 		.block-head {
 			font-size: 35px;
 		}
-	}	
+	}
+
 	@media (max-width: 1260px) {
 		.comment-list {
 			max-width: 930px;
 			margin: auto;
 			justify-content: space-between;
 		}
+
 		.comment-item {
 			display: flex;
 			justify-content: center;
 		}
 	}
+
 	@media (max-width: 1260px) {
 		.comment-list {
 			justify-content: center;
 		}
 	}
-</style>
 
+</style>
